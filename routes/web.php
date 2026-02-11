@@ -4,10 +4,19 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
-//site  \/
-Route::get('/', [SiteController::class,'index']);
 
-//login \/
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/', [SiteController::class,'index'])->name('site.index'); //site
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/login', [LoginController::class, 'index'])->name('site.login');; //login
+
+Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.login');; //login
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', [SiteController::class,'dashboard'])->name('site.dashboard');;
+
+    Route::post('/logout', [LoginController::class,'logout'])->name('auth.logout');; //logout
+}); 
+
+
+
