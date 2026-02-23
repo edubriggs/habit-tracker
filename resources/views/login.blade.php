@@ -43,7 +43,7 @@
         </div>
         <button
           type="submit"
-          class="bg-white border-2 p-2"
+          class="bg-white border-2 p-2 hover:opacity-80"
         >
           Entrar
         </button>
