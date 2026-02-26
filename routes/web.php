@@ -16,6 +16,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.logi
 Route::get('/cadastro', [RegisterController::class,'index'])->name('site.register');
 Route::post('/cadastro', [RegisterController::class,'store'])->name('auth.register');
 
+//Auth
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [SiteController::class,'dashboard'])->name('site.dashboard');
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     //habitos
     Route::get('/dashboard/habits/create', [HabitController::class, 'create'])->name('habit.create');
     Route::post('/dashboard/habits', [HabitController::class, 'store'])->name('habit.store');
+    Route::delete('/dashboard/habits/{habit}', [HabitController::class,'destroy'])->name('habit.destroy');
 }); 
 
 
