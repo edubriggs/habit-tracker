@@ -19,16 +19,17 @@ Route::post('/cadastro', [RegisterController::class,'store'])->name('auth.regist
 //Auth
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', [SiteController::class,'dashboard'])->name('site.dashboard');
+    //Route::get('/dashboard', [SiteController::class,'dashboard'])->name('site.dashboard');
 
     Route::post('/logout', [LoginController::class,'logout'])->name('auth.logout'); //logout
 
     //habitos
-    Route::get('/dashboard/habits/create', [HabitController::class, 'create'])->name('habit.create');
-    Route::post('/dashboard/habits', [HabitController::class, 'store'])->name('habit.store');
-    Route::delete('/dashboard/habits/{habit}', [HabitController::class,'destroy'])->name('habit.destroy');
-    Route::get('/dashboard/habits/{habit}/edit' , [HabitController::class,'edit'])->name('habit.edit');
-    Route::put('/dashboard/habits/{habit}', [HabitController::class,'update'])->name('habit.update');
+    //Route::get('/dashboard/habits/create', [HabitController::class, 'create'])->name('habit.create');
+    //Route::post('/dashboard/habits', [HabitController::class, 'store'])->name('habit.store');
+    //Route::delete('/dashboard/habits/{habit}', [HabitController::class,'destroy'])->name('habit.destroy');
+    //Route::get('/dashboard/habits/{habit}/edit' , [HabitController::class,'edit'])->name('habit.edit');
+    //Route::put('/dashboard/habits/{habit}', [HabitController::class,'update'])->name('habit.update');
+    Route::resource('/dashboard/habits', HabitController::class)->except('show');
 }); 
 
 
