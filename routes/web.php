@@ -30,7 +30,8 @@ Route::middleware('auth')->group(function () {
     //Route::get('/dashboard/habits/{habit}/edit' , [HabitController::class,'edit'])->name('habit.edit');
     //Route::put('/dashboard/habits/{habit}', [HabitController::class,'update'])->name('habit.update');
     Route::resource('/dashboard/habits', HabitController::class)->except('show');
-    Route::get('dashboard/habits/configurar', [HabitController::class,'settings'])->name('habits.settings');
+    Route::get('/dashboard/habits/configurar', [HabitController::class,'settings'])->name('habits.settings');
+    Route::post('/dashboard/habits/{habit}/toggle', [HabitController::class,'toggle'])->name('habits.toggle');
 }); 
 
 
