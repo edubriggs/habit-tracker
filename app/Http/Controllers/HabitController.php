@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use function Illuminate\Support\hours;
 
 
 class HabitController extends Controller
@@ -71,6 +72,21 @@ class HabitController extends Controller
     public function settings(){
         $habits = Auth::user()->habits;
         return view('habits.settings', compact('habits'));
+    }
+
+    public function history(){
+
+        $selectedYear = Carbon::now()->year;
+        $startDate = Carbon::create(year:$selectedYear, month:1, day:1);
+        $endtDate = Carbon::create(year:$selectedYear, month:12, day:31, hour:23, minute:59, second:59);
+
+        $habits = Auth::user()->habits()
+            ->with(['habitLogs'=>function($query) use ($startDate, $endtDate){
+                $query->whereBetween('completed_at', [$startDate, $endtDate]);
+            }])
+            ->get();
+
+        return view('habits.history', compact('habits', 'selectedYear'));
     }
 
     public function toggle(Habit $habit)
