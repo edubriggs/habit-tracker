@@ -36,27 +36,31 @@ class Habit extends Model
       ->isNotEmpty();
     }
 
-    public static function gerenateYearGrid(int $year):array {
-      $startDate = Carbon::create($year, 1, 1); 
-      $endDate = Carbon::create($year, 12, 31); 
+public static function gerenateYearGrid(int $year): array
+{
+    $startDate = Carbon::create($year, 1, 1);
+    $endDate = Carbon::create($year, 12, 31);
 
-      $weeks = [];
-      $currentWeek = [];
+    $weeks = [];
+    $currentWeek = [];
 
-      $firstDayOfWeek = $startDate->dayOfWeek; 
+    $firstDayOfWeek = $startDate->dayOfWeek;
 
-      for ($i = 0; $i < $firstDayOfWeek; $i++) {
-       
-      $currentWeek[] = null;
+    // adiciona espaços vazios antes do primeiro dia
+    for ($i = 0; $i < $firstDayOfWeek; $i++) {
+        $currentWeek[] = null;
+    }
 
-        for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
-          $currentWeek[] = $date->copy();
-          if ($date->isSaturday() || $date->eq($endDate)) {
+    for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+
+        $currentWeek[] = $date->copy();
+
+        if ($date->isSaturday() || $date->eq($endDate)) {
             $weeks[] = $currentWeek;
             $currentWeek = [];
-            }
-          }
-      }
-      return $weeks;
+        }
     }
+
+    return $weeks;
+}
 }

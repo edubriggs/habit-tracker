@@ -74,9 +74,16 @@ class HabitController extends Controller
         return view('habits.settings', compact('habits'));
     }
 
-    public function history(){
+    public function history(?int $year = null): View{
 
-        $selectedYear = Carbon::now()->year;
+        $selectedYear = $year ?? Carbon::now()->year;
+
+        $avaliableYears = range(2025, Carbon::now()->year);
+
+        if(!in_array($selectedYear, $avaliableYears)) {
+            abort(404, 'Ano inválido.');
+        }
+
         $startDate = Carbon::create(year:$selectedYear, month:1, day:1);
         $endtDate = Carbon::create(year:$selectedYear, month:12, day:31, hour:23, minute:59, second:59);
 
@@ -86,7 +93,7 @@ class HabitController extends Controller
             }])
             ->get();
 
-        return view('habits.history', compact('habits', 'selectedYear'));
+        return view('habits.history', compact('habits', 'selectedYear', 'avaliableYears'));
     }
 
     public function toggle(Habit $habit)
