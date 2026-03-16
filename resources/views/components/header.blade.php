@@ -12,7 +12,7 @@
         </div>
 
         
-        <div>
+        <div class="flex gap-2 items-center">
 
             @auth
                 <form class="inline"action="{{ route('auth.logout') }}" method="POST">
@@ -39,6 +39,10 @@
                 </div>
                 
             @endguest
+
+            <a class="habit-btn habit-shadow-lg p-2" href="https://github.com/edubriggs/habit-tracker" target="_blank">
+                <x-icons.github />
+            </a>
         </div>
 
     </div>

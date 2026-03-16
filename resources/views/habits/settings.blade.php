@@ -19,7 +19,7 @@
 
       <ul class="flex flex-col gap-2">
         @forelse($habits as $item)
-          <li class="habit-shadow-lg pd-2 bg-[#FFDAAC]">
+          <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
             <div class="flex gap-2 items-center">
               <p class="font-bold text-lg">
                 {{ $item->name }}
