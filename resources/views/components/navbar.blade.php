@@ -13,12 +13,6 @@
         </li>
 
         <li>
-            <a href="#" class="{{ Route::is('habits.settings') ? 'font-bold underline' : '' }} text-md border-r-2 border-habit-orange pr-2 hover:underline">
-              Calendário
-            </a>
-        </li>
-
-        <li>
             <a href="{{ route('habits.settings') }}" class="{{ Route::is('habits.settings') ? 'font-bold underline' : '' }} text-md border-r-2 border-habit-orange pr-2 hover:underline">
               Gerenciar Hábitos
             </a>

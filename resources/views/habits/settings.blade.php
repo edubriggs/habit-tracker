@@ -1,57 +1,46 @@
 <x-layout>
-  <main class="py-10 min-h-[calc(100vh-160px)] px-4">
-    
-  <x-navbar />
+  <main class="max-w-5xl mx-auto py-10 min-h-[calc(100vh-160px)] px-4 w-full">
 
-    @session('success')
-    <div class="flex">
-    <p class="bg-green-100 border-2 border-green-400 text-green-700 p-3 mb-4">
-        {{ session('success') }}
-    </p>
-    </div>
-    
-    @endsession
+    {{-- NAVBAR --}}
+    <x-navbar />
 
-    <div>
-      <h2 class="text-lg mt-8 mb-2">
-        Configurar Hábitos
-      </h2>
+    <x-title>
+      Configurar Hábitos
+    </x-title>
 
-      <ul class="flex flex-col gap-2">
+    <ul class="flex flex-col gap-2 mt-2">
         @forelse($habits as $item)
-          <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
-            <div class="flex gap-2 items-center">
+          <li class="flex gap-2 items-center justify-between w-full">
+            {{-- ITEM --}}
+            <div class="habit-shadow-lg p-2 bg-[#FFDAAC] w-full">
               <p class="font-bold text-lg">
                 {{ $item->name }}
               </p>
-                <a class="bg-white p-1 hover:opacity-65" href="{{ route('habits.edit', $item->id) }}">
-                  <x-icons.edit>
-
-                  </x-icons>
-
-              </a>
-
-              <form action="{{ route('habits.destroy', $item) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white p-1 hover:opacity-65 cursor-pointer">
-                    <x-icons.trash></x-icons>
-                </button>
-              </form>
-              
             </div>
+
+            {{-- EDIT --}}
+            <a class="bg-white habit-shadow-lg p-2 hover:opacity-50" href="{{ route('habits.edit', $item->id) }}"}}>
+              <x-icons.edit />
+            </a>
+
+            {{-- DELETE --}}
+            <form action="{{ route('habits.destroy', $item) }}" method="POST">
+              @csrf
+              @method('DELETE')
+
+              <button type="submit" class="habit-shadow-lg bg-red-500 text-white p-2 hover:opacity-50 cursor-pointer">
+                <x-icons.trash />
+              </button>
+            </form>
           </li>
         @empty
           <p>
-            Ainda não tem nenhum hábito cadastrado
+            Ainda não tem nenhuma hábito cadastrado
           </p>
           <a href="{{ route('habits.create') }}" class="bg-white p-2 border-2">
             Cadastre um novo hábito agora
           </a>
         @endforelse
       </ul>
-    </div>
   </main>
 </x-layout>
-
-
